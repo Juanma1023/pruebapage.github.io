@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="text-align:center; font-family:sans-serif;">
+
+  <h2>Encuesta de Movilidad</h2>
+  <p>Haz clic para compartir tu ubicación</p>
+
+  <button onclick="getLocation()" style="padding:10px 20px; font-size:16px;">
+    Compartir ubicación
+  </button>
+
+  <p id="status"></p>
+
+<script>
+
+var formBase = "https://docs.google.com/forms/d/e/1FAIpQLSdi2DD8EtUW51w4eoNktgrn7g0IxhOlNemQcNDID2vf3iioPw/viewform?usp=pp_url";
+
+function getLocation() {
+  document.getElementById("status").innerText = "Obteniendo ubicación...";
+
+  navigator.geolocation.getCurrentPosition(success, error, {
+    enableHighAccuracy: true,
+    timeout: 10000
+  });
+}
+
+function success(position) {
+  var lat = position.coords.latitude;
+  var lon = position.coords.longitude;
+
+  var loc = lat + "," + lon;
+
+  var finalURL = formBase + "&entry.284097531=" + loc;
+
+  window.location.href = finalURL;
+}
+
+function error() {
+  document.getElementById("status").innerText = "No se pudo obtener ubicación";
+
+  window.location.href = formBase;
+}
+
+</script>
+
+</body>
+</html>
